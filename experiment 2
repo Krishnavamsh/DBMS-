@@ -1,0 +1,116 @@
+mysql> use university;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_university |
++----------------------+
+| staff_details        |
+| stud_details         |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table stud_department(regno int(10),dept_id int(10),dept_name varchar(20),dept_head varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_university |
++----------------------+
+| staff_details        |
+| stud_department      |
+| stud_details         |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc stud_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| regno    | int(10)     | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| gender   | varchar(5)  | YES  |     | NULL    |       |
+| DOB      | int(20)     | YES  |     | NULL    |       |
+| mobileno | int(11)     | YES  |     | NULL    |       |
+| address  | varchar(50) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> desc staff_details;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| staff_id   | int(10)     | YES  |     | NULL    |       |
+| staff_name | varchar(20) | YES  |     | NULL    |       |
+| staff_dept | varchar(10) | YES  |     | NULL    |       |
+| salary     | int(20)     | YES  |     | NULL    |       |
+| gender     | varchar(5)  | YES  |     | NULL    |       |
+| address    | varchar(50) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc stud_department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| regno     | int(10)     | YES  |     | NULL    |       |
+| dept_id   | int(10)     | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| dept_head | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> alter table stud_details add primary key(regno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| regno    | int(10)     | NO   | PRI | 0       |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| gender   | varchar(5)  | YES  |     | NULL    |       |
+| DOB      | int(20)     | YES  |     | NULL    |       |
+| mobileno | int(11)     | YES  |     | NULL    |       |
+| address  | varchar(50) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> alter table stud_department add foreign key(regno) references stud_details(regno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud_department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| regno     | int(10)     | YES  | MUL | NULL    |       |
+| dept_id   | int(10)     | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| dept_head | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> alter table stud_details add unique(regno);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc stud_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| regno    | int(10)     | NO   | PRI | 0       |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| gender   | varchar(5)  | YES  |     | NULL    |       |
+| DOB      | int(20)     | YES  |     | NULL    |       |
+| mobileno | int(11)     | YES  |     | NULL    |       |
+| address  | varchar(50) | YES  |     | NULL    |       |
+| dept     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> alter table stud_details add check(age>=18);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
